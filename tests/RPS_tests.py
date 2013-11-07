@@ -1,20 +1,20 @@
 from nose.tools import *
-import RockPaperScissors.game4
+import RockPaperScissors.Engine
 import pexpect
 
 
 def test_games_list():
-    rps = RockPaperScissors.game4.RockPaperScissors()
+    rps = RockPaperScissors.Engine.RockPaperScissors()
     eq_(rps.games, [])
 
 
 def test_generator():
-    rps = RockPaperScissors.game4.RockPaperScissors()
+    rps = RockPaperScissors.Engine.RockPaperScissors()
     eq_(type(rps.generate_computer_hand()), type("str"))
 
 
 def test_pick_winner():
-    rps = RockPaperScissors.game4.RockPaperScissors()
+    rps = RockPaperScissors.Engine.RockPaperScissors()
     eq_(rps.pick_winner(Hand.ROCK, Hand.PAPER), Result.LOSS)
     eq_(rps.pick_winner(Hand.ROCK, Hand.SCISSORS), Result.WIN)
     eq_(rps.pick_winner(Hand.ROCK, Hand.ROCK), Result.DRAW)
@@ -27,8 +27,8 @@ def test_pick_winner():
 
 
 def test_game_class():
-    rps = RockPaperScissors.game4.RockPaperScissors()
-    rps.game = rps.game4.Game()
+    rps = RockPaperScissors.Engine.RockPaperScissors()
+    rps.game = rps.Engine.Game()
 
     rps.game(player_hand = "1", computer_hand = "2", winner = "3")
 
@@ -38,19 +38,19 @@ def test_game_class():
 
 
 def test_ask_hand():
-    ui = RockPaperScissors.game4.CommandLineInterface()
-    RockPaperScissors.game4.input = lambda _: "Rock"
+    ui = RockPaperScissors.Engine.CommandLineInterface()
+    RockPaperScissors.Engine.input = lambda _: "Rock"
     eq_(ui.ask_hand(), "Rock")
 
 
 def test_ask_action():
-    ui = RockPaperScissors.game4.CommandLineInterface()
-    RockPaperScissors.game4.raw_input = lambda _: "1"
+    ui = RockPaperScissors.Engine.CommandLineInterface()
+    RockPaperScissors.Engine.raw_input = lambda _: "1"
     eq_(ui.ask_action(), "1")
 
 
 def test_integration():
-    child = pexpect.spawn("python ../RPS/RockPaperScissors/game4.py")
+    child = pexpect.spawn("python ../RPS/RockPaperScissors/Engine.py")
     child.expect("Pick a")
     child.sendline("Rock")
     child.expect("Please select:")
