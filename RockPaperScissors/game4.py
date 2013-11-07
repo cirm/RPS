@@ -1,5 +1,6 @@
 from sys import exit
 import random
+from RockPaperScissors.Strings import Hand, Result
 from RockPaperScissors.userInterface import CommandLineInterface
 
 
@@ -64,26 +65,7 @@ class Game(object):
         
     def get_winner(self):
         return self.winner
-    
-
-class Hand(object):
-    
-    ROCK = "Rock"
-    PAPER = "Paper"
-    SCISSORS = "Scissors"
 
 
-class Action(object):
-    NEW_GAME = "1"
-    VIEW_SCORE = "2"
-    QUIT = "3"
-
-
-class Result(object):
-    DRAW = "Draw"
-    WIN = "Win"
-    LOSS = "Loss"
-    
-    
 if __name__ == "__main__":
     RockPaperScissors().start_new_game()

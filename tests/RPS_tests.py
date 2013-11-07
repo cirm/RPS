@@ -30,9 +30,7 @@ def test_game_class():
     rps = RockPaperScissors.game4.RockPaperScissors()
     rps.game = rps.game4.Game()
 
-    rps.game.set_player_hand("1")
-    rps.game.set_computer_hand("2")
-    rps.game.set_winner("3")
+    rps.game(player_hand = "1", computer_hand = "2", winner = "3")
 
     eq_(rps.game.get_player_hand(), "1")
     eq_(rps.game.get_comp_hand(), "2")
