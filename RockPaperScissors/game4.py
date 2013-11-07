@@ -5,11 +5,11 @@ import random
 class CommandLineInterface(object):
     '''used for reading and parsing the information'''      
     def ask_hand(self):
-        hand = raw_input("Pick a hand (Rock, Paper, Scissors)?\n")
+        hand = input("Pick a hand (Rock, Paper, Scissors)?\n")
         return hand
        
     def ask_action(self):
-        action = raw_input("Please select: [1]Play another game, [2]View"
+        action = input("Please select: [1]Play another game, [2]View"
                            " scores or [3]Quit?")
         return action
     
@@ -32,7 +32,7 @@ class CommandLineInterface(object):
               "a %s for you!" % (player, comp, outc))
       
     def display_history(self, games_list):
-        print "You have played %s game(s):" % (len(games_list))
+        print ("You have played %s game(s):" % (len(games_list)))
         print ("Player".ljust(9) + "Computer".ljust(9) + "Winner".ljust(8))
         for game in games_list:
             print (game.get_player_hand().ljust(9) + 
@@ -46,20 +46,16 @@ class RockPaperScissors(object):
         self.games = []       
         
     def start_new_game(self):
-        game = Game()
-        
         player_hand = self.userInterface.read_input_hand()
-        game.set_player_hand(player_hand)        
-        
         comp_hand = self.generate_computer_hand()
-        game.set_computer_hand(comp_hand)
-        
         outcome = self.pick_winner(player_hand, comp_hand)
-        game.set_winner(outcome)
-        
+
+        game = Game(player_hand, comp_hand, outcome)
+
         self.userInterface.declare_winner(player_hand, comp_hand, outcome)
         self.games.append(game)
-        self.ask_next_action()       
+
+        self.ask_next_action()
            
     def generate_computer_hand(self):
         comp_hand = random.choice([Hand.ROCK, Hand.PAPER, Hand.SCISSORS])
@@ -85,16 +81,16 @@ class RockPaperScissors(object):
             self.userInterface.display_history(self.games)
             self.ask_next_action()
         else:  # quit
-            print "This was really nice!"
+            print("This was really nice!")
             exit(0)
                     
     
 class Game(object):
     ''' used for storing individual game objects'''
-    def __init__(self):
-        self.set_player_hand
-        self.set_computer_hand
-        self.set_winner
+    def __init__(self, player_hand, computer_hand, winner):
+        self.player_hand = player_hand
+        self.computer_hand = computer_hand
+        self.winner = winner
                      
     def set_player_hand(self, hand):
         self.player_hand = hand
