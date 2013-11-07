@@ -1,6 +1,6 @@
 from sys import exit
 import random
-from RockPaperScissors.Strings import Hand, Result
+from RockPaperScissors.strings import Hand, Result
 from RockPaperScissors.userInterface import CommandLineInterface
 
 

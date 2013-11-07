@@ -1,4 +1,4 @@
-from RockPaperScissors.Strings import Hand, Action
+from RockPaperScissors.strings import Hand, Action
 
 __author__ = 'madis'
 
