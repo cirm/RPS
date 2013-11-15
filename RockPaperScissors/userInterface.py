@@ -16,17 +16,17 @@ class CommandLineInterface(object):
 
     def read_input_hand(self):
         hand = self.ask_hand().title()
-        if (hand == Hand.ROCK or hand == Hand.PAPER or hand == Hand.SCISSORS):
-            return hand
-        else:
+        while not (hand == Hand.ROCK or hand == Hand.PAPER or hand == Hand.SCISSORS):
             return self.read_input_hand()
+
+        return hand
 
     def read_action(self):
         state = self.ask_action()
-        if (state == Action.NEW_GAME or state == Action.VIEW_SCORE or state == Action.QUIT):
-            return state
-        else:
-            return self.read_action()
+        while not (state == Action.NEW_GAME or state == Action.VIEW_SCORE or state == Action.QUIT):
+            self.ask_action()
+
+        return state
 
     def declare_winner(self, player, comp, outc):
         print ("You picked %s, computer picked %s and it's "

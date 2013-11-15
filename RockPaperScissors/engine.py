@@ -1,4 +1,3 @@
-from sys import exit
 import random
 from RockPaperScissors.strings import Hand, Result
 from RockPaperScissors.userInterface import CommandLineInterface
@@ -11,17 +10,20 @@ class RockPaperScissors(object):
         self.games = []       
         
     def start_new_game(self):
-        player_hand = self.userInterface.read_input_hand()
-        comp_hand = self.generate_computer_hand()
-        outcome = self.pick_winner(player_hand, comp_hand)
+        state = True
 
-        game = Game(player_hand, comp_hand, outcome)
+        while (state == True):
+            player_hand = self.userInterface.read_input_hand()
+            comp_hand = self.generate_computer_hand()
+            outcome = self.pick_winner(player_hand, comp_hand)
 
-        self.userInterface.declare_winner(player_hand, comp_hand, outcome)
-        self.games.append(game)
+            game = Game(player_hand, comp_hand, outcome)
 
-        self.ask_next_action()
-           
+            self.userInterface.declare_winner(player_hand, comp_hand, outcome)
+            self.games.append(game)
+
+            state = self.ask_next_action()
+
     def generate_computer_hand(self):
         comp_hand = random.choice([Hand.ROCK, Hand.PAPER, Hand.SCISSORS])
         return comp_hand
@@ -40,16 +42,17 @@ class RockPaperScissors(object):
        
     def ask_next_action(self):
         state = self.userInterface.read_action()
-        if state == "1":  # start new game
-            self.start_new_game()
-        elif state == "2":  # view history
+
+        while (state == "2"):
             self.userInterface.display_history(self.games)
-            self.ask_next_action()
+            state = self.userInterface.read_action()
+
+        if state == "1":  # start new game
+            return True
         else:  # quit
-            print("This was really nice!")
-            exit(0)
-                    
-    
+            return False
+
+
 class Game(object):
     ''' used for storing individual game objects'''
     def __init__(self, player_hand, computer_hand, winner):
@@ -62,7 +65,7 @@ class Game(object):
 
     def get_comp_hand(self):
         return self.computer_hand
-        
+
     def get_winner(self):
         return self.winner
 
