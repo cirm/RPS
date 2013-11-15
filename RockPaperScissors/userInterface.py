@@ -4,12 +4,15 @@ __author__ = 'madis'
 
 
 class CommandLineInterface(object):
-    '''used for reading and parsing the information'''
-    def ask_hand(self):
+    """used for reading and parsing the information"""
+
+    @staticmethod
+    def ask_hand():
         hand = input("Pick a hand (Rock, Paper, Scissors)?\n")
         return hand
 
-    def ask_action(self):
+    @staticmethod
+    def ask_action():
         action = input("Please select: [1]Play another game, [2]View"
                            " scores or [3]Quit?")
         return action
@@ -28,11 +31,13 @@ class CommandLineInterface(object):
 
         return state
 
-    def declare_winner(self, player, comp, outc):
+    @staticmethod
+    def declare_winner(player, comp, outc):
         print ("You picked %s, computer picked %s and it's "
               "a %s for you!" % (player, comp, outc))
 
-    def display_history(self, games_list):
+    @staticmethod
+    def display_history(games_list):
         print ("You have played %s game(s):" % (len(games_list)))
         print ("Player".ljust(9) + "Computer".ljust(9) + "Winner".ljust(8))
         for game in games_list:

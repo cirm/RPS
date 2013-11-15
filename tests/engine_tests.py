@@ -1,6 +1,6 @@
 from nose.tools import *
 import RockPaperScissors.engine
-import pexpect
+import RockPaperScissors.userInterface
 
 
 def test_games_list():
@@ -27,38 +27,23 @@ def test_pick_winner():
 
 
 def test_game_class():
-    rps = RockPaperScissors.engine.RockPaperScissors()
-    rps.game = rps.engine.Game()
+    rps = RockPaperScissors.engine.Game(player_hand="1", computer_hand="2", winner="3")
 
-    rps.game(player_hand = "1", computer_hand = "2", winner = "3")
-
-    eq_(rps.game.get_player_hand(), "1")
-    eq_(rps.game.get_comp_hand(), "2")
-    eq_(rps.game.get_winner(), "3")
+    eq_(rps.get_player_hand(), "1")
+    eq_(rps.get_comp_hand(), "2")
+    eq_(rps.get_winner(), "3")
 
 
 def test_ask_hand():
     ui = RockPaperScissors.engine.CommandLineInterface()
-    RockPaperScissors.engine.input = lambda _: "Rock"
+    RockPaperScissors.userInterface.input = lambda _: "Rock"
     eq_(ui.ask_hand(), "Rock")
 
 
 def test_ask_action():
     ui = RockPaperScissors.engine.CommandLineInterface()
-    RockPaperScissors.engine.raw_input = lambda _: "1"
-    eq_(ui.ask_action(), "1")
-
-
-def test_integration():
-    child = pexpect.spawn("python ../RPS/RockPaperScissors/engine.py")
-    child.expect("Pick a")
-    child.sendline("Rock")
-    child.expect("Please select:")
-    child.sendline("1")
-    child.expect("Pick a")
-    child.sendline("Paper")
-    child.expect("Please select:")
-    child.sendline("3")
+    RockPaperScissors.userInterface.input = lambda _: "1"
+    eq_(ui.read_action(), "1")
 
 
 class Hand(object):
